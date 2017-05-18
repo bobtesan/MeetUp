@@ -85,8 +85,8 @@
                 android:text="Event Date" />
 
             <EditText
-                android:id="@+id/dateText"
-                android:layout_width="100dp"
+                android:id="@+id/dateText2"
+                android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
