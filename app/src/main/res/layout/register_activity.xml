@@ -27,16 +27,7 @@
             android:layout_height="30dp" />
 
         <EditText
-            android:id="@+id/editText2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Name"
-            android:inputType="textPersonName"
-            android:textSize="@dimen/hint" />
-
-        <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/userName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -44,30 +35,38 @@
             android:inputType="textPersonName"
             android:textSize="@dimen/hint" />
 
-        <EditText
-            android:id="@+id/editText4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Password"
-            android:inputType="textPersonName"
-            android:textSize="@dimen/hint" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
 
         <EditText
-            android:id="@+id/editText5"
+            android:id="@+id/email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="E-mail"
-            android:inputType="textPersonName"
+            android:inputType="textPersonName|textWebEmailAddress"
             android:textSize="@dimen/hint" />
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="30dp" />
+            android:layout_height="20dp" />
+
+        <EditText
+            android:id="@+id/pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Password"
+            android:inputType="textPersonName|textWebPassword"
+            android:textSize="@dimen/hint" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="70dp" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/registerB"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:text="Register" />

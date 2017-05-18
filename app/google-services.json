@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "605239529074-9rbghfs9bhvdg5klqhnkka478icufhla.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.intern05.meetup",
+            "certificate_hash": "2a6da8d6020fed534dece6e0a2aeb413ae1dd1d6"
+          }
+        },
+        {
           "client_id": "605239529074-e6lprf267nfp6ebvq9q5r8skbn6vqrrn.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
