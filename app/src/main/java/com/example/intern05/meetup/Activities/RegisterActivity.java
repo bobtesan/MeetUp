@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.intern05.meetup.R;
@@ -22,6 +23,8 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText email,pwd;
     private Button registerB;
 
+    private ProgressBar progBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,10 +34,14 @@ public class RegisterActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+        progBar=(ProgressBar)findViewById(R.id.progBar);
+        progBar.setVisibility(View.GONE);
+
         registerB = (Button) findViewById(R.id.registerB);
         registerB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progBar.setVisibility(View.VISIBLE);
                 mAuth.createUserWithEmailAndPassword(email.getText().toString(), pwd.getText().toString()).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -42,8 +49,10 @@ public class RegisterActivity extends AppCompatActivity {
                             Toast.makeText(RegisterActivity.this, "User registered succesfully", Toast.LENGTH_SHORT).show();
                             Intent i = new Intent(RegisterActivity.this, EventActivity.class);
                             startActivity(i);
+                            progBar.setVisibility(View.GONE);
                         }else{
                             Toast.makeText(RegisterActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
+                            progBar.setVisibility(View.GONE);
                         }
                     }
                 });

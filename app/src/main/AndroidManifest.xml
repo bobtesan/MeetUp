@@ -22,7 +22,7 @@
             android:label="@string/title_activity_test"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activities.EventActivity" />
-        <activity android:name=".Activities.EventCreateActivity"></activity>
+        <activity android:name=".Activities.EventCreateActivity" />
     </application>
 
 </manifest>
