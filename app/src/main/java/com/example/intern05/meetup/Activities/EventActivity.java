@@ -1,15 +1,23 @@
 package com.example.intern05.meetup.Activities;
 
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.example.intern05.meetup.Adapters.MyAdapter;
+import com.example.intern05.meetup.Fragments.FragmentOne;
+import com.example.intern05.meetup.Fragments.FragmentTwo;
 import com.example.intern05.meetup.Models.Events;
 import com.example.intern05.meetup.R;
 
@@ -21,48 +29,65 @@ import java.util.List;
 
 public class EventActivity extends AppCompatActivity {
 
-    private List<Events> eventsList=new ArrayList<>();
-    private RecyclerView recyclerView;
-    private MyAdapter myAdapter;
-    private FloatingActionButton fab;
 
-    DateFormat df ;
-    String date;
+
+    private Toolbar toolbar;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
 
-        df=new SimpleDateFormat("EEE, d MMM yyyy, HH:mm");
-        date=df.format(Calendar.getInstance().getTime());
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        recyclerView=(RecyclerView)findViewById(R.id.recyclerView);
-        myAdapter=new MyAdapter(eventsList);
-        RecyclerView.LayoutManager mLayoutManager=new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(myAdapter);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        fab=(FloatingActionButton)findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i=new Intent(EventActivity.this,EventCreateActivity.class);
-                startActivity(i);
-            }
-        });
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
 
-        prepareEventData();
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+        getSupportActionBar().hide();
     }
-    private void prepareEventData(){
-        Events events=new Events("EventName",date);
-        eventsList.add(events);
 
-        events=new Events("Event2",date);
-        eventsList.add(events);
 
-        events=new Events("Event3",date);
-        eventsList.add(events);
+    private void setupViewPager(ViewPager viewPager) {
+        EventActivity.ViewPagerAdapter adapter = new EventActivity.ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new FragmentOne(), "Events");
+        adapter.addFragment(new FragmentTwo(), "Invites");
+        viewPager.setAdapter(adapter);
     }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
+    }
+
 }
