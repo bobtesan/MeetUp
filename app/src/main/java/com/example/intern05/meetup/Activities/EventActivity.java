@@ -1,30 +1,18 @@
 package com.example.intern05.meetup.Activities;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-
-import com.example.intern05.meetup.Adapters.MyAdapter;
 import com.example.intern05.meetup.Fragments.FragmentOne;
 import com.example.intern05.meetup.Fragments.FragmentTwo;
-import com.example.intern05.meetup.Models.Events;
 import com.example.intern05.meetup.R;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class EventActivity extends AppCompatActivity {

@@ -20,6 +20,7 @@
         >
         <activity android:name=".Activities.EventActivity" />
         <activity android:name=".Activities.EventCreateActivity" />
+        <activity android:name=".Activities.EventDetails"></activity>
     </application>
 
 </manifest>
