@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this,"Logged in",Toast.LENGTH_SHORT).show();
                             Intent i=new Intent(MainActivity.this, EventActivity.class);
                             startActivity(i);
+                            finish();
                         }
                         else{
                             Toast.makeText(MainActivity.this,"Connection error", Toast.LENGTH_SHORT).show();
