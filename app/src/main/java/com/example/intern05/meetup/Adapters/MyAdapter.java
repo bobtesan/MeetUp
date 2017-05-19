@@ -19,37 +19,41 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     private List<Events> eventsList;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
-        public TextView title,eventDate;
 
-        public MyViewHolder(View view){
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        public TextView title, eventDate;
+
+        public MyViewHolder(View view) {
             super(view);
-            title=(TextView)view.findViewById(R.id.title);
-            eventDate=(TextView)view.findViewById(R.id.eventDate);
+            title = (TextView) view.findViewById(R.id.title);
+            eventDate = (TextView) view.findViewById(R.id.eventDate);
         }
-    }
-    public MyAdapter(List<Events>eventsList){
-        this.eventsList=eventsList;
-    }
-
-    @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView= LayoutInflater.from(parent.getContext()).inflate(R.layout.event_list,parent,false);
-        return new MyViewHolder(itemView);
 
     }
 
-    @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        Events events=eventsList.get(position);
-        holder.title.setText(events.getTitle());
-        holder.eventDate.setText(events.getEventDate().toString());
+    public MyAdapter(List < Events > eventsList) {
+            this.eventsList = eventsList;
+        }
+
+        @Override
+        public MyViewHolder onCreateViewHolder (ViewGroup parent,int viewType){
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.event_list, parent, false);
+            return new MyViewHolder(itemView);
+
+        }
+
+        @Override
+        public void onBindViewHolder (MyViewHolder holder,int position){
+            Events events = eventsList.get(position);
+            holder.title.setText(events.getTitle());
+            holder.eventDate.setText(events.getEventDate().toString());
+        }
+
+        @Override
+        public int getItemCount () {
+            return eventsList.size();
+        }
+
+
     }
-
-    @Override
-    public int getItemCount() {
-        return eventsList.size();
-    }
-
-
-}

@@ -70,7 +70,6 @@ public class FragmentOne extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(myAdapter);
 
-
         fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,5 +91,22 @@ public class FragmentOne extends Fragment {
 
         events = new Events("Event3", date);
         eventsList.add(events);
+        events = new Events("Event4", date);
+        eventsList.add(events);
+        events = new Events("Event3", date);
+        eventsList.add(events);
+        events = new Events("Event3", date);
+        eventsList.add(events);
+        events = new Events("Event3", date);
+        eventsList.add(events);
+        events = new Events("Event3", date);
+        eventsList.add(events);
+        events = new Events("Event3", date);
+        eventsList.add(events);
+        events = new Events("Event3", date);
+        eventsList.add(events);
+        events = new Events("Event3", date);
+        eventsList.add(events);
+
     }
 }
