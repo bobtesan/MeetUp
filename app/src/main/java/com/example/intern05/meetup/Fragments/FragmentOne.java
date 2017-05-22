@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.intern05.meetup.Activities.EventActivity;
 import com.example.intern05.meetup.Activities.EventCreateActivity;
 import com.example.intern05.meetup.Activities.EventDetails;
 import com.example.intern05.meetup.Adapters.MyAdapter;
@@ -69,6 +70,7 @@ public class FragmentOne extends Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(myAdapter);
+
 
         fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
