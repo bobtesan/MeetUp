@@ -3,6 +3,7 @@ package com.example.intern05.meetup.Activities;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.intern05.meetup.R;
 import com.google.firebase.database.DatabaseReference;
@@ -25,7 +27,7 @@ import java.util.Map;
 public class EventCreateActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     FirebaseDatabase db = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = db.getReference("Events");
+    DatabaseReference myRef = db.getReference().child("Events");
 
     Button calendarB;
     EditText dateText;
@@ -33,6 +35,7 @@ public class EventCreateActivity extends AppCompatActivity implements DatePicker
     Button createEventB;
     EditText eventName;
     TimePickerDialog mTimePicker;
+    String temp_key;
 
     int day, year, month;
 
@@ -45,7 +48,6 @@ public class EventCreateActivity extends AppCompatActivity implements DatePicker
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_create);
 
-        final String temp_key;
 
         eventName = (EditText) findViewById(R.id.event_name);
         dateText = (EditText) findViewById(R.id.dateText2);
@@ -56,20 +58,27 @@ public class EventCreateActivity extends AppCompatActivity implements DatePicker
         createEventB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Map<String, Object> map = new HashMap<String, Object>();
-                map.put(eventName.getText().toString(), "");
-                myRef.updateChildren(map);
-                myRef = db.getReference("Events").child(eventName.getText().toString());
-                Map<String, Object> map2 = new HashMap<String, Object>();
-                map2.put("EventDate", dateText.getText().toString());
-                map2.put("StartTime", timeStart.getText().toString());
-                map2.put("Location","Inca_nu");
-                myRef.updateChildren(map2);
+                try {
+                    Map<String, Object> m = new HashMap<String, Object>();
+                    temp_key = myRef.push().getKey();
+                    myRef.updateChildren(m);
+
+                    myRef = db.getReference("Events").child(temp_key.toString()).child(eventName.getText().toString());
+                    Map<String, Object> map2 = new HashMap<String, Object>();
+                    map2.put("EventDate", dateText.getText().toString());
+                    map2.put("StartTime", timeStart.getText().toString());
+                    map2.put("Location", "Inca_nu");
+                    myRef.updateChildren(map2);
+                    Toast.makeText(getApplicationContext(), "Event created successfully.", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(EventCreateActivity.this, EventActivity.class);
+                    startActivity(i);
+                } catch (Exception ex) {
+                    Toast.makeText(getApplicationContext(), "Oops. There is an error.", Toast.LENGTH_SHORT).show();
+                }
+
 
             }
         });
-
-
         dateText.setEnabled(false);
         calendarB.setOnClickListener(new View.OnClickListener() {
             @Override

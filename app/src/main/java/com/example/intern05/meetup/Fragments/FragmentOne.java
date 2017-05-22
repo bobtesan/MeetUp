@@ -19,7 +19,13 @@ import com.example.intern05.meetup.Activities.EventDetails;
 import com.example.intern05.meetup.Adapters.MyAdapter;
 import com.example.intern05.meetup.Models.Events;
 import com.example.intern05.meetup.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.security.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,7 +33,11 @@ import java.util.Calendar;
 import java.util.List;
 
 
-public class FragmentOne extends Fragment {
+
+public class FragmentOne extends Fragment implements MyAdapter.EventItemSelectionListener {
+
+    FirebaseDatabase db=FirebaseDatabase.getInstance();
+    DatabaseReference myRef=db.getReference();
 
     private View rootView;
     private List<Events> eventsList = new ArrayList<>();
@@ -35,6 +45,8 @@ public class FragmentOne extends Fragment {
     private RecyclerView recyclerView;
     private MyAdapter myAdapter;
     private FloatingActionButton fab;
+
+
 
     DateFormat df;
     String date;
@@ -64,8 +76,9 @@ public class FragmentOne extends Fragment {
         df = new SimpleDateFormat("EEE, d MMM yyyy, HH:mm");
         date = df.format(Calendar.getInstance().getTime());
 
+
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
-        myAdapter = new MyAdapter(eventsList);
+        myAdapter = new MyAdapter(eventsList, this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(rootView.getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -85,30 +98,17 @@ public class FragmentOne extends Fragment {
     }
 
     private void prepareEventData() {
+
+
         Events events = new Events("EventName", date);
         eventsList.add(events);
 
-        events = new Events("Event2", date);
-        eventsList.add(events);
 
-        events = new Events("Event3", date);
-        eventsList.add(events);
-        events = new Events("Event4", date);
-        eventsList.add(events);
-        events = new Events("Event3", date);
-        eventsList.add(events);
-        events = new Events("Event3", date);
-        eventsList.add(events);
-        events = new Events("Event3", date);
-        eventsList.add(events);
-        events = new Events("Event3", date);
-        eventsList.add(events);
-        events = new Events("Event3", date);
-        eventsList.add(events);
-        events = new Events("Event3", date);
-        eventsList.add(events);
-        events = new Events("Event3", date);
-        eventsList.add(events);
+    }
 
+    @Override
+    public void onEventSelected(int position, Events event) {
+        Intent i=new Intent(getContext(),EventDetails.class);
+        startActivity(i);
     }
 }

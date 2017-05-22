@@ -22,6 +22,7 @@ import java.util.List;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     private List<Events> eventsList;
+    private EventItemSelectionListener listener;
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
@@ -36,8 +37,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     }
 
-    public MyAdapter(List<Events> eventsList) {
+    public MyAdapter(List<Events> eventsList, EventItemSelectionListener listener) {
         this.eventsList = eventsList;
+        this.listener = listener;
     }
 
     @Override
@@ -48,10 +50,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        Events events = eventsList.get(position);
+    public void onBindViewHolder(final MyViewHolder holder, int position) {
+        final Events events = eventsList.get(position);
         holder.title.setText(events.getTitle());
         holder.eventDate.setText(events.getEventDate().toString());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onEventSelected(holder.getAdapterPosition(), events);
+            }
+        });
     }
 
     @Override
@@ -59,6 +68,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         return eventsList.size();
     }
 
+
+    public interface EventItemSelectionListener{
+        void onEventSelected(int position, Events event);
+    }
 
 
 }
