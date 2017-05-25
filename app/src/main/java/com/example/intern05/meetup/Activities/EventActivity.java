@@ -12,18 +12,23 @@ import android.view.View;
 import com.example.intern05.meetup.Adapters.MyAdapter;
 import com.example.intern05.meetup.Models.Events;
 import com.example.intern05.meetup.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 
 public class EventActivity extends AppCompatActivity implements MyAdapter.EventItemSelectionListener {
 
 
-
+    DatabaseReference root;
     private List<Events> eventsList = new ArrayList<>();
 
     private RecyclerView recyclerView;
@@ -39,11 +44,13 @@ public class EventActivity extends AppCompatActivity implements MyAdapter.EventI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
 
+
         df = new SimpleDateFormat("EEE, d MMM yyyy, HH:mm");
-        date = df.format(Calendar.getInstance().getTime());
+        //date = df.format(Calendar.getInstance().getTime());
 
+        root = FirebaseDatabase.getInstance().getReference("Events");
 
-        recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         myAdapter = new MyAdapter(eventsList, this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(EventActivity.this);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -51,7 +58,7 @@ public class EventActivity extends AppCompatActivity implements MyAdapter.EventI
         recyclerView.setAdapter(myAdapter);
 
 
-        fab = (FloatingActionButton)findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,21 +68,35 @@ public class EventActivity extends AppCompatActivity implements MyAdapter.EventI
         });
         prepareEventData();
     }
+
     private void prepareEventData() {
+        root.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot children : dataSnapshot.getChildren()) {
+                    HashMap<String, Object> map = (HashMap<String, Object>) children.getValue();
+                    String date = (String) map.get("EventDate");
+                    String time =(String) map.get("StartTime");
 
+                    eventsList.add(new Events(children.getKey(), date, time));
+                }
+                myAdapter.notifyDataSetChanged();
+            }
 
-        Events events = new Events("EventName", date);
-        eventsList.add(events);
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
     }
+
     @Override
     public void onEventSelected(int position, Events event) {
-        Intent i=new Intent(EventActivity.this,EventDetails.class);
+        Intent i = new Intent(EventActivity.this, EventDetails.class);
         startActivity(i);
     }
-
-
 
 
 }

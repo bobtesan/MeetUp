@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,7 +36,7 @@ public class EventCreateActivity extends AppCompatActivity implements DatePicker
     Button createEventB;
     EditText eventName;
     TimePickerDialog mTimePicker;
-    String temp_key;
+
 
     int day, year, month;
 
@@ -48,22 +49,20 @@ public class EventCreateActivity extends AppCompatActivity implements DatePicker
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_create);
 
-
         eventName = (EditText) findViewById(R.id.event_name);
         dateText = (EditText) findViewById(R.id.dateText2);
         calendarB = (Button) findViewById(R.id.calendarB);
         timeStart = (EditText) findViewById(R.id.timeStart);
+
+
 
         createEventB = (Button) findViewById(R.id.button3);
         createEventB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    Map<String, Object> m = new HashMap<String, Object>();
-                    temp_key = myRef.push().getKey();
-                    myRef.updateChildren(m);
 
-                    myRef = db.getReference("Events").child(temp_key.toString()).child(eventName.getText().toString());
+                    myRef = db.getReference("Events").child(eventName.getText().toString()); //child(temp_key.toString()).
                     Map<String, Object> map2 = new HashMap<String, Object>();
                     map2.put("EventDate", dateText.getText().toString());
                     map2.put("StartTime", timeStart.getText().toString());

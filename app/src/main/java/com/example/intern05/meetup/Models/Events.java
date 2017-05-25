@@ -11,13 +11,23 @@ public class Events {
 
     String title;
     String eventDate;
+    String time;
 
-    public Events(String title,String eventDate){
+    public Events(String title,String eventDate, String time){
         this.title=title;
         this.eventDate=eventDate;
+        this.time = time;
     }
     public Events(){
 
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getTitle() {

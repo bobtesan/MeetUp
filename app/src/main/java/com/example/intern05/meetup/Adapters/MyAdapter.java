@@ -53,7 +53,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         final Events events = eventsList.get(position);
         holder.title.setText(events.getTitle());
-        holder.eventDate.setText(events.getEventDate().toString());
+        holder.eventDate.setText(events.getEventDate());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

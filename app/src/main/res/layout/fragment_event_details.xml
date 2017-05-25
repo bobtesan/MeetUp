@@ -70,9 +70,9 @@
                 android:id="@+id/textView8"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
                 android:layout_weight="1"
                 android:text="Event Date"
-                android:layout_marginRight="30dp"
                 android:textAlignment="center"
                 android:textSize="20sp" />
 
@@ -100,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingLeft="34dp"
-                android:text="Start time"
+                android:text="Event Time"
                 android:textSize="20sp" />
 
             <EditText
