@@ -102,7 +102,6 @@ public class EventCreateActivity extends AppCompatActivity implements DatePicker
             }
 
         });
-
     }
 
     Calendar calander = Calendar.getInstance();
