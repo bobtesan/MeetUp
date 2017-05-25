@@ -16,7 +16,7 @@ import com.example.intern05.meetup.R;
 public class SplashScreen extends AppCompatActivity {
 
     TextView tv;
-    // Splash screen timer
+
     private static int SPLASH_TIME_OUT = 2000;
 
     @Override
