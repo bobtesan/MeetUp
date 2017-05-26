@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
@@ -69,7 +68,7 @@ public class EventCreateActivity extends AppCompatActivity implements DatePicker
                     map2.put("Location", "Inca_nu");
                     myRef.updateChildren(map2);
                     Toast.makeText(getApplicationContext(), "Event created successfully.", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(EventCreateActivity.this, EventActivity.class);
+                    Intent i = new Intent(EventCreateActivity.this, SlideBarActivity.class);
                     startActivity(i);
                 } catch (Exception ex) {
                     Toast.makeText(getApplicationContext(), "Oops. There is an error.", Toast.LENGTH_SHORT).show();

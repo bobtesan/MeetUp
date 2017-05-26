@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.intern05.meetup.Activities.EventActivity;
 import com.example.intern05.meetup.Activities.EventCreateActivity;
 import com.example.intern05.meetup.Activities.EventDetails;
 import com.example.intern05.meetup.Adapters.MyAdapter;
@@ -57,7 +56,7 @@ public class FragmentEvents extends Fragment implements MyAdapter.EventItemSelec
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        rootView = inflater.inflate(R.layout.fragment_chat, container, false);
+        rootView = inflater.inflate(R.layout.fragment_events, container, false);
         return rootView;
     }
 
@@ -72,7 +71,7 @@ public class FragmentEvents extends Fragment implements MyAdapter.EventItemSelec
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
         myAdapter = new MyAdapter(eventsList, this);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(myAdapter);
@@ -111,7 +110,7 @@ public class FragmentEvents extends Fragment implements MyAdapter.EventItemSelec
     }
     @Override
     public void onEventSelected(int position, Events event) {
-        Intent i = new Intent(getContext(), EventDetails.class);
+        Intent i = new Intent(getActivity(), EventDetails.class);
         startActivity(i);
     }
 }

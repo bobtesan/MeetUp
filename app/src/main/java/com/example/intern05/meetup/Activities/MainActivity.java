@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             pb.setVisibility(View.GONE);
                             Toast.makeText(MainActivity.this,"Logged in",Toast.LENGTH_SHORT).show();
-                            Intent i=new Intent(MainActivity.this, EventActivity.class);
+                            Intent i=new Intent(MainActivity.this, SlideBarActivity.class);
                             startActivity(i);
                             finish();
                         }
